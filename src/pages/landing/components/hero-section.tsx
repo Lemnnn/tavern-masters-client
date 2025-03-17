@@ -5,7 +5,7 @@ export default function HeroSection() {
   return (
     <div className="mt-12 flex flex-col items-center w-full gap-32">
       <div className="flex flex-col items-center gap-3">
-        <h1 className="text-4xl md:text-5xl font-semibold text-center mt-4">
+        <h1 className="text-4xl md:text-5xl font-semibold text-center mt-4 max-w-3xl leading-14">
           The place to create and share{" "}
           <span className="font-bold text-accent underline">your</span>{" "}
           Heartstone Battlegrounds comps.
