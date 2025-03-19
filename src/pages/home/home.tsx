@@ -1,3 +1,12 @@
+import { useGetAuthenticatedUser } from "../../context/authenticated-context";
+
 export default function Home() {
-  return <div>home</div>;
+  const { username, email } = useGetAuthenticatedUser();
+
+  return (
+    <div>
+      <p>{username}</p>
+      <p>{email}</p>
+    </div>
+  );
 }
