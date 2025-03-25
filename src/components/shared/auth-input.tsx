@@ -3,6 +3,7 @@ interface AuthInputProps {
   type?: string;
   value?: string;
   register?: any;
+  error?: string;
   name?: string;
   icon?: React.ReactNode;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
@@ -14,6 +15,7 @@ export default function AuthInput({
   type,
   value,
   icon,
+  error,
   register,
   name,
   onChange,
@@ -36,6 +38,7 @@ export default function AuthInput({
           className="pl-10 pr-4 py-3 w-full bg-zinc-800 border border-zinc-700 text-white rounded-lg focus:ring-2 focus:ring-white focus:border-zinc-600 outline-none"
         />
       </div>
+      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
     </div>
   );
 }

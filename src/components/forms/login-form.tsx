@@ -1,4 +1,4 @@
-import { Eye, Mail } from "lucide-react";
+import { Eye, Loader2, Mail } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthInput from "../shared/auth-input";
 import { useState } from "react";
@@ -24,7 +24,6 @@ export default function LoginForm() {
 
   async function onSubmit(values: TLogin) {
     try {
-      console.log("Form values:", values);
       await loginUser(values);
 
       form.reset();
@@ -39,9 +38,7 @@ export default function LoginForm() {
   return (
     <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
       {error && (
-        <div className="bg-red-500 text-white p-3 rounded-lg text-center">
-          {error.message}
-        </div>
+        <div className=" text-red-600 text-center">{error.message}</div>
       )}
 
       <AuthInput
@@ -50,6 +47,7 @@ export default function LoginForm() {
         icon={<Mail />}
         register={form.register}
         name="email"
+        error={form.formState.errors.email?.message}
       />
 
       <AuthInput
@@ -58,6 +56,7 @@ export default function LoginForm() {
         icon={<Eye />}
         register={form.register}
         name="password"
+        error={form.formState.errors.password?.message}
         onClick={(e) => {
           e.preventDefault();
           setShowPassword(!showPassword);
@@ -78,9 +77,13 @@ export default function LoginForm() {
       <button
         type="submit"
         disabled={isPending}
-        className="w-full py-3 px-4 bg-white hover:bg-gray-200 text-black font-medium rounded-lg transition duration-200"
+        className="w-full py-3 px-4 flex justify-center bg-white hover:bg-gray-200 text-black font-medium rounded-lg transition duration-200"
       >
-        Log In
+        {isPending ? (
+          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+        ) : (
+          "Log In"
+        )}
       </button>
     </form>
   );

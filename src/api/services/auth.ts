@@ -1,7 +1,7 @@
 import { TLogin, TRegister } from "../../schemas/auth";
 import { TUser } from "../../schemas/user";
 
-const BASE_API_URL = "http://localhost:8080/api/v1";
+const BASE_API_URL = import.meta.env.VITE_APP_BASE_URL;
 
 export async function register(credentials: TRegister) {
   const headers = new Headers();
@@ -48,8 +48,10 @@ export async function login(credentials: TLogin) {
   if (!response.ok) {
     const { error } = await response.json();
 
+    console.log(error);
+
     if (error.message) {
-      throw new Error(error.message);
+      throw new Error("Invalid email or password.");
     }
 
     throw new Error(

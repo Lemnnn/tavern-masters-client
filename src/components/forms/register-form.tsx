@@ -1,39 +1,73 @@
-import { Eye, Mail, User } from "lucide-react";
+import { Eye, Loader2, Mail, User } from "lucide-react";
 import AuthInput from "../shared/auth-input";
 import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { registerSchema, TRegister } from "../../schemas/auth";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { useRegisterUser } from "../../api/queries/auth";
 
 export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
 
-  console.log(email, password);
+  const form = useForm<TRegister>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      username: "",
+      email: "",
+      password: "",
+    },
+  });
+
+  const { mutateAsync: registerUser, isPending, error } = useRegisterUser();
+
+  const navigate = useNavigate();
+
+  async function onSubmit(values: TRegister) {
+    try {
+      const success = await registerUser(values);
+
+      if (success) {
+        form.reset();
+        form.clearErrors();
+
+        navigate("/notes");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
-    <form className="space-y-6">
+    <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+      {error && (
+        <div className="bg-red-500 text-white p-3 rounded-lg text-center">
+          {error.message}
+        </div>
+      )}
+
       <AuthInput
         label="Username"
         type="text"
-        value={username}
+        register={form.register}
+        name="username"
         icon={<User />}
-        onChange={(e) => setUsername(e.target.value)}
       />
 
       <AuthInput
         label="Email"
         type="email"
-        value={email}
+        register={form.register}
+        name="email"
         icon={<Mail />}
-        onChange={(e) => setEmail(e.target.value)}
       />
 
       <AuthInput
         label="Password"
         type={showPassword ? "text" : "password"}
-        value={password}
+        register={form.register}
         icon={<Eye />}
-        onChange={(e) => setPassword(e.target.value)}
+        name="password"
         onClick={(e) => {
           e.preventDefault();
           setShowPassword(!showPassword);
@@ -42,9 +76,14 @@ export default function RegisterForm() {
 
       <button
         type="submit"
-        className="w-full py-3 px-4 bg-white hover:bg-gray-200 text-black font-medium rounded-lg transition duration-200"
+        disabled={isPending}
+        className="w-full py-3 px-4 flex justify-center bg-white hover:bg-gray-200 text-black font-medium rounded-lg transition duration-200"
       >
-        Sign Up
+        {isPending ? (
+          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+        ) : (
+          "Sign Up"
+        )}
       </button>
     </form>
   );

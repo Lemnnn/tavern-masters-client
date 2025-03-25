@@ -31,7 +31,7 @@ export function useGetMe() {
   });
 }
 
-export function useLogout() {
+export function useLogoutUser() {
   return useMutation({
     mutationFn: logout,
     mutationKey: [QUERY_KEYS.GET_AUTHENTICATED_USER],
