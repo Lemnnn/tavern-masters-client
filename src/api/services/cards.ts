@@ -41,7 +41,7 @@ export async function getCards(tier = "", type = "") {
   if (type && type !== "All") params.append("minionType", type.toLowerCase());
 
   const response = await fetch(
-    `${BASE_API_URL}?${params.toString()}&sort=tier:asc`,
+    `${BASE_API_URL}?${params.toString()}&sort=tier:asc&pageSize=10`,
     {
       method: "GET",
       headers,
