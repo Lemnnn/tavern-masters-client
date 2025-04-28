@@ -1,16 +1,19 @@
-import { useState } from "react";
-
 interface CardHolderProps {
   label: string;
   Modal: React.ComponentType<{
     selectedCards: string[];
     setSelectedCards: React.Dispatch<React.SetStateAction<string[]>>;
   }>;
+  selectedCards: string[];
+  setSelectedCards: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-export default function CardHolder({ label, Modal }: CardHolderProps) {
-  const [selectedCards, setSelectedCards] = useState<string[]>([]);
-
+export default function CardHolder({
+  label,
+  Modal,
+  selectedCards,
+  setSelectedCards,
+}: CardHolderProps) {
   return (
     <div className="w-full flex flex-col pt-20">
       <div className="w-full bg-black/60 flex justify-between items-center rounded-t-2xl">

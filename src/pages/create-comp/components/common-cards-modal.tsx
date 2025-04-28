@@ -19,6 +19,8 @@ export default function CommonCardsModal({
     selectedType
   );
 
+  console.log("Common cards data", data);
+
   return (
     <SelectCardModal
       cards={data?.data.cards || []}
