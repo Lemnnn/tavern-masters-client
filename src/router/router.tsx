@@ -10,8 +10,9 @@ import Home from "../pages/home/home";
 import AuthenticatedContextProvider from "../context/authenticated-context";
 import AppLayout from "../components/layout/app-layout";
 import LikedComps from "@/pages/liked-comps/liked-comps";
-import Cards from "@/pages/cards/cards";
 import CreateComp from "@/pages/create-comp/create-comp";
+import MyComps from "@/pages/my-comps/my-comps";
+import Comp from "@/pages/comp/comp";
 
 const router = createBrowserRouter([
   {
@@ -30,12 +31,16 @@ const router = createBrowserRouter([
         element: <LikedComps />,
       },
       {
-        path: "/bg-cards",
-        element: <Cards />,
-      },
-      {
         path: "/create-comp",
         element: <CreateComp />,
+      },
+      {
+        path: "/my-comps",
+        element: <MyComps />,
+      },
+      {
+        path: "/comps/:id",
+        element: <Comp />,
       },
     ],
   },

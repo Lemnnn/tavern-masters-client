@@ -17,12 +17,6 @@ export default function CreateComp() {
   const [spells, setSpells] = useState<string[]>([]);
   const [compName, setCompName] = useState("");
 
-  console.log("Core cards", coreCards);
-  console.log("Addon cards", addonCards);
-  console.log("Heroes", heroes);
-  console.log("Spells", spells);
-  console.log("Comp name", compName);
-
   const form = useForm<TCreateComp>({
     resolver: zodResolver(createCompSchema),
     defaultValues: {

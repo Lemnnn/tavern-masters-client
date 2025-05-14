@@ -12,11 +12,43 @@ export async function createComp(compData: TCreateComp) {
     body: JSON.stringify(compData),
   });
 
-  console.log(response);
-
   if (!response.ok) {
     const { error } = await response.json();
     throw new Error(error?.message || "Failed to create comp.");
+  }
+
+  return response.json();
+}
+
+export async function getMyComps() {
+  const response = await fetch(`${BASE_API_URL}/comps/my-comps`, {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    const { error } = await response.json();
+    throw new Error(error?.message || "Failed to get your comps.");
+  }
+
+  return response.json();
+}
+
+export async function getCompById(id: string) {
+  const response = await fetch(`${BASE_API_URL}/comps/${id}`, {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    const { error } = await response.json();
+    throw new Error(error?.message || "Failed to get comp.");
   }
 
   return response.json();

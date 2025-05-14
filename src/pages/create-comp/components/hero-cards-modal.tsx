@@ -12,8 +12,6 @@ export default function HeroCardsModal({
 }: HeroCardsModalProps) {
   const { data, isLoading, error } = useGetHeroCards();
 
-  console.log("HeroCardsModal data", data);
-
   return (
     <SelectCardModal
       cards={data?.data.cards || []}

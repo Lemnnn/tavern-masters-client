@@ -15,8 +15,6 @@ export default function SpellCardsModal({
 
   const { data, isLoading, error } = useGetSpellCards(selectedTier);
 
-  console.log("SpellCardsModal data", data);
-
   return (
     <SelectCardModal
       cards={data?.data.cards || []}

@@ -1,4 +1,4 @@
-import { Club, Hammer, Heart, Home, Plus } from "lucide-react";
+import { Hammer, Heart, Home, Plus } from "lucide-react";
 import { useGetAuthenticatedUser } from "../../context/authenticated-context";
 import { NavLink } from "react-router-dom";
 import SidebarUserMenu from "../shared/sidebar-user-menu";
@@ -18,15 +18,9 @@ const topLinks = [
     icon: <Home />,
   },
   {
-    id: 3,
-    label: "Cards",
-    path: "/bg-cards",
-    icon: <Club />,
-  },
-  {
     id: 4,
     label: "My comps",
-    path: "/comps",
+    path: "/my-comps",
     icon: <Hammer />,
   },
   {
